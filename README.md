@@ -9,6 +9,7 @@
 - Pirsch Analytics
 - OpenPanel Analytics
 - Cloudflare Web Analytics
+- Umami Analytics
 - Simple Analytics
 
 ## Installation
@@ -45,6 +46,10 @@ openpanel_analytics: "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
 # `data-cf-beacon` snippet; without it nothing is rendered.
 enable_cloudflare_analytics: false
 cloudflare_analytics: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+
+# Umami website ID from the tracking-code snippet.
+enable_umami_analytics: false
+umami_analytics: "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
 
 # Simple Analytics identifies your site by domain, so there is no key to set.
 enable_simple_analytics: false

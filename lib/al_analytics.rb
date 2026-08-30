@@ -76,6 +76,14 @@ module AlAnalytics
         HTML
       end
 
+      umami_id = analytics_value(site, "umami_analytics", "umami")
+      if enabled?(site, "enable_umami_analytics", umami_id)
+        output << <<~HTML
+          <!-- Umami Analytics -->
+          <script#{cookie_attrs} defer src="https://cloud.umami.is/script.js" data-website-id="#{umami_id}"></script>
+        HTML
+      end
+
       if flag_enabled?(site, "enable_simple_analytics")
         output << <<~HTML
           <script#{cookie_attrs} async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>

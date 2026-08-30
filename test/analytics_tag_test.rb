@@ -92,6 +92,35 @@ class AlAnalyticsTagTest < Minitest::Test
     refute_includes output, 'cloudflareinsights.com'
   end
 
+  def test_renders_umami_with_cookie_consent_attributes
+    output = render_scripts(
+      'enable_cookie_consent' => true,
+      'umami_analytics' => '37676d90-adee-445f-adc3-682aaab9ea27'
+    )
+
+    assert_includes output, 'cloud.umami.is/script.js'
+    assert_includes output, 'data-website-id="37676d90-adee-445f-adc3-682aaab9ea27"'
+    assert_includes output, 'type="text/plain" data-category="analytics"'
+  end
+
+  def test_renders_umami_from_legacy_analytics_hash
+    output = render_scripts(
+      'analytics' => { 'umami' => 'umami-legacy-id' }
+    )
+
+    assert_includes output, 'data-website-id="umami-legacy-id"'
+  end
+
+  def test_skips_or_disables_umami_without_an_enabled_identifier
+    assert_equal '', render_scripts('enable_umami_analytics' => true)
+
+    output = render_scripts(
+      'umami_analytics' => 'umami-disabled-id',
+      'enable_umami_analytics' => false
+    )
+    refute_includes output, 'cloud.umami.is'
+  end
+
   def test_renders_simple_analytics_when_enabled
     output = render_scripts(
       'enable_simple_analytics' => true
